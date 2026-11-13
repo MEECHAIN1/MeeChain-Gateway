@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: meechain
+    description: Read-only MeeChain operations data
 paths:
   /healthz:
     get:
@@ -24,6 +26,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /meechain/network:
+    get:
+      operationId: getMeechainNetwork
+      tags: [meechain]
+      summary: Read MintMe inbound network status
+      description: Reads the public MintMe RPC endpoint and returns verified network and recent block data. This endpoint cannot write to the chain.
+      responses:
+        "200":
+          description: Network status and recent blocks
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeeChainNetwork"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +48,63 @@ components:
           type: string
       required:
         - status
+    MeeChainBlockMetric:
+      type: object
+      properties:
+        blockNumber:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        transactionCount:
+          type: integer
+        gasUsed:
+          type: string
+        intervalSeconds:
+          type: ["number", "null"]
+      required:
+        - blockNumber
+        - timestamp
+        - transactionCount
+        - gasUsed
+        - intervalSeconds
+    MeeChainNetwork:
+      type: object
+      properties:
+        name:
+          type: string
+          enum: [MintMe]
+        rpcUrl:
+          type: string
+          format: uri
+        expectedChainId:
+          type: integer
+        observedChainId:
+          type: ["integer", "null"]
+        status:
+          type: string
+          enum: [connected, wrong_network, unavailable]
+        latestBlock:
+          oneOf:
+            - $ref: "#/components/schemas/MeeChainBlockMetric"
+            - type: "null"
+        recentBlocks:
+          type: array
+          items:
+            $ref: "#/components/schemas/MeeChainBlockMetric"
+        checkedAt:
+          type: string
+          format: date-time
+        message:
+          type: ["string", "null"]
+      required:
+        - name
+        - rpcUrl
+        - expectedChainId
+        - observedChainId
+        - status
+        - latestBlock
+        - recentBlocks
+        - checkedAt
+        - message
 
