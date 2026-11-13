@@ -1,0 +1,16 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "nmZCec0DC64OV4YPpEHQo"
+uri = "file://.agents/outputs/mintme-network-governance-analysis.md"
+type = "text"
+title = "MeeChain Network & Governance Analysis"
+description = "Detailed analysis of live MintMe RPC status, the latest 10 blocks, data limits, and MeeChain governance next steps."
+logical_id = "0d70e3b1-ff52-4bcc-bafa-23c256116eb8"
+content_hash = "sha256:77aa429d6e5b2f5913e9b73fcb030767ee21d7da48317679afbc4af00317ce4f"
+size = 6241
+mtime_ms = 1794593839834
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/repl:1192b6a9-1845-45e8-a0f5-a34f85ffcdbf/0d70e3b1-ff52-4bcc-bafa-23c256116eb8/a912be62-7f64-4f21-84ad-45a1986a8d21"
+storage_version_token = "1794593855439913"
+content_type = "text/markdown"
